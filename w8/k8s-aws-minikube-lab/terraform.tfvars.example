@@ -1,0 +1,11 @@
+project_name = "k8s-minikube-lab"
+
+aws_region = "ap-southeast-1"
+
+instance_type = "t3.small"
+
+app_node_port = 30080
+
+my_ip_cidr = "0.0.0.0/0"
+
+page_title = "Kubernetes on AWS with Terraform, EC2, Minikube and ALB"
