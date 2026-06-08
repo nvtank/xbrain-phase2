@@ -1,0 +1,31 @@
+# Local directory for Sweden and other platforms
+.terraform/
+
+# Local state files (không bao giờ commit)
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Override files as they may contain sensitive data
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files for build purposes
+# !override.tf
+
+# Include micro-agent specific files
+.terraformrc
+terraform.rc
+
+# SSH Private keys
+*.pem
+*.key
+id_rsa

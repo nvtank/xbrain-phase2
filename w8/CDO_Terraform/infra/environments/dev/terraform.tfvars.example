@@ -1,0 +1,17 @@
+# =============================================================================
+# FILE CẤU HÌNH BIẾN MẪU (Lưu thành file terraform.tfvars để chạy thực tế)
+# LƯU Ý: KHÔNG commit file terraform.tfvars lên Git vì nó chứa mật khẩu database!
+# =============================================================================
+
+# Thay thế bằng tên Key Pair bạn tạo trên AWS EC2 Console (ví dụ: my-aws-key)
+key_name = "your-aws-key-name"
+
+# Thay thế bằng IP public của bạn để bảo mật kết nối SSH
+# Có thể kiểm tra IP tại: https://checkip.amazonaws.com
+# Ví dụ: "113.190.233.45/32"
+my_ip = "0.0.0.0/0"
+
+# Cấu hình Database RDS MySQL
+db_name     = "webappdb"
+db_user     = "dbadmin"
+db_password = "ThayMậtKhẩuCựcKỳBảoMậtỞĐây123!"
