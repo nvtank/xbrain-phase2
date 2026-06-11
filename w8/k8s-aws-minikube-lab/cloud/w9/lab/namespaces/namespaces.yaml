@@ -21,3 +21,12 @@ metadata:
   labels:
     name: rollouts
     purpose: progressive-delivery
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: canary-demo
+  labels:
+    name: canary-demo
+    purpose: canary-demo
+
