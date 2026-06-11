@@ -25,7 +25,7 @@ variable "public_subnet_cidrs" {
 variable "instance_type" {
   description = "EC2 instance type for Minikube node"
   type        = string
-  default     = "t3.small"
+  default     = "t3.large"
 }
 
 variable "app_node_port" {
