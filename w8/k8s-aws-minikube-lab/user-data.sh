@@ -41,7 +41,7 @@ rm -f minikube-linux-amd64
 echo "===== Start Minikube ====="
 su - ubuntu -c "
   set -euxo pipefail
-  minikube start --driver=docker --memory=1800 --cpus=2
+  minikube start --driver=docker --memory=6000 --cpus=2
   kubectl wait --for=condition=Ready nodes --all --timeout=180s
 "
 

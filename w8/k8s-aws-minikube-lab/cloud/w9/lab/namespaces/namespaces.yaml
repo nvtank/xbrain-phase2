@@ -25,8 +25,8 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: canary-demo
+  name: demo
   labels:
-    name: canary-demo
+    name: demo
     purpose: canary-demo
 
