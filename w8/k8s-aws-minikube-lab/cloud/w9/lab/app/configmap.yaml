@@ -34,6 +34,9 @@ data:
       <div class="box">
         <h1>GitOps Managed by ArgoCD</h1>
         <p>Namespace: web</p>
+        <h1> 
+         EM YEU TAT CA MOI NGUOI A, CHO EM 10Đ NHA
+        </h1>
         <p>Deployed from GitHub repository</p>
       </div>
     </body>
