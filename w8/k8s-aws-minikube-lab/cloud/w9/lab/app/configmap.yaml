@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: web-config
+  namespace: web
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>GitOps Managed Web App</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #0f172a;
+          color: #e2e8f0;
+          text-align: center;
+          padding-top: 80px;
+        }
+        .box {
+          display: inline-block;
+          padding: 32px;
+          border: 1px solid #334155;
+          border-radius: 16px;
+          background: #1e293b;
+        }
+        h1 { color: #38bdf8; }
+        p { color: #cbd5e1; }
+      </style>
+    </head>
+    <body>
+      <div class="box">
+        <h1>GitOps Managed by ArgoCD</h1>
+        <p>Namespace: web</p>
+        <p>Deployed from GitHub repository</p>
+      </div>
+    </body>
+    </html>

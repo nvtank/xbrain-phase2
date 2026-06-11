@@ -125,7 +125,12 @@ su - ubuntu -c "
 echo "===== Create socat proxy ====="
 NODE_IP="$(su - ubuntu -c 'minikube ip')"
 
+
+
 cat >/etc/systemd/system/k8s-nodeport-proxy.service <<EOF
+
+
+
 [Unit]
 Description=Proxy EC2 host port to Minikube NodePort
 After=docker.service
