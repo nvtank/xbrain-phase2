@@ -6,7 +6,7 @@ metadata:
   labels:
     app: api
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -27,7 +27,7 @@ spec:
             - name: ERROR_RATE
               value: "0"
             - name: VERSION
-              value: "v2"
+              value: "v2-crud"
           readinessProbe:
             httpGet:
               path: /healthz

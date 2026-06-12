@@ -1,43 +1,412 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: web-config
+  name: web-app-html
   namespace: web
-  annotations:
-    argocd.argoproj.io/sync-wave: "0"
 data:
   index.html: |
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
     <head>
-      <title>GitOps Managed Web App</title>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>W9 CRUD Demo — Nguyen Van Tuan Anh</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         body {
-          font-family: Arial, sans-serif;
-          background: #0f172a;
-          color: #e2e8f0;
+          font-family: 'Inter', sans-serif;
+          min-height: 100vh;
+          background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+          background-size: 400% 400%;
+          animation: bgShift 12s ease infinite;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 40px 20px 60px;
+          color: #fff;
+        }
+
+        @keyframes bgShift {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        /* ── floating orbs ── */
+        .orb {
+          position: fixed;
+          border-radius: 50%;
+          filter: blur(80px);
+          opacity: 0.35;
+          pointer-events: none;
+          animation: floatOrb 20s ease-in-out infinite;
+        }
+        .orb1 { width: 500px; height: 500px; top: -150px; left: -150px; background: #7c3aed; animation-delay: 0s; }
+        .orb2 { width: 400px; height: 400px; bottom: -100px; right: -100px; background: #2563eb; animation-delay: -7s; }
+        .orb3 { width: 300px; height: 300px; top: 40%; left: 60%; background: #db2777; animation-delay: -14s; }
+
+        @keyframes floatOrb {
+          0%, 100% { transform: translateY(0) scale(1); }
+          50%       { transform: translateY(30px) scale(1.08); }
+        }
+
+        /* ── header ── */
+        header {
           text-align: center;
-          padding-top: 80px;
+          margin-bottom: 36px;
+          animation: fadeDown 0.7s ease both;
         }
-        .box {
+
+        .badge {
           display: inline-block;
-          padding: 32px;
-          border: 1px solid #334155;
-          border-radius: 16px;
-          background: #1e293b;
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          padding: 4px 14px;
+          border-radius: 999px;
+          background: rgba(255,255,255,0.12);
+          border: 1px solid rgba(255,255,255,0.2);
+          margin-bottom: 16px;
+          color: #a5b4fc;
         }
-        h1 { color: #38bdf8; }
-        p { color: #cbd5e1; }
+
+        h1 {
+          font-size: 2.2rem;
+          font-weight: 700;
+          background: linear-gradient(90deg, #818cf8, #f9a8d4, #34d399);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 8px;
+        }
+
+        .subtitle {
+          color: rgba(255,255,255,0.55);
+          font-size: 0.9rem;
+        }
+
+        /* ── glass cards ── */
+        .card {
+          width: 100%;
+          max-width: 780px;
+          background: rgba(255,255,255,0.07);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: 20px;
+          padding: 28px 32px;
+          margin-bottom: 24px;
+          animation: fadeUp 0.6s ease both;
+        }
+        .card:nth-child(2) { animation-delay: 0.1s; }
+        .card:nth-child(3) { animation-delay: 0.2s; }
+        .card:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes fadeDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+          font-size: 1rem;
+          font-weight: 600;
+          color: #a5b4fc;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          margin-bottom: 18px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        h2 .icon { font-size: 1.1rem; }
+
+        /* ── input row ── */
+        .input-row {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+          flex: 1;
+          min-width: 200px;
+          padding: 12px 16px;
+          background: rgba(255,255,255,0.08);
+          border: 1px solid rgba(255,255,255,0.18);
+          border-radius: 12px;
+          color: #fff;
+          font-size: 0.95rem;
+          font-family: inherit;
+          outline: none;
+          transition: border-color 0.2s, background 0.2s;
+        }
+        input[type="text"]::placeholder { color: rgba(255,255,255,0.35); }
+        input[type="text"]:focus {
+          border-color: #818cf8;
+          background: rgba(255,255,255,0.13);
+        }
+
+        /* ── buttons ── */
+        .btn {
+          padding: 11px 20px;
+          border: none;
+          border-radius: 12px;
+          font-size: 0.88rem;
+          font-weight: 600;
+          font-family: inherit;
+          cursor: pointer;
+          transition: transform 0.15s, box-shadow 0.15s, filter 0.15s;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          white-space: nowrap;
+        }
+        .btn:hover  { transform: translateY(-2px); filter: brightness(1.12); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary  { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff; box-shadow: 0 4px 15px rgba(99,102,241,0.4); }
+        .btn-reload   { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-info     { background: linear-gradient(135deg, #0ea5e9, #22d3ee); color: #fff; box-shadow: 0 4px 15px rgba(14,165,233,0.4); }
+        .btn-done     { background: linear-gradient(135deg, #10b981, #34d399); color: #fff; box-shadow: 0 4px 12px rgba(16,185,129,0.35); }
+        .btn-rename   { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1f2937; box-shadow: 0 4px 12px rgba(245,158,11,0.35); }
+        .btn-delete   { background: linear-gradient(135deg, #ef4444, #f87171); color: #fff; box-shadow: 0 4px 12px rgba(239,68,68,0.35); }
+        .btn-sm { padding: 7px 13px; font-size: 0.8rem; border-radius: 9px; }
+
+        /* ── items list ── */
+        #items { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+        .item-card {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 14px 18px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 14px;
+          animation: itemIn 0.35s ease both;
+          transition: background 0.2s;
+        }
+        .item-card:hover { background: rgba(255,255,255,0.09); }
+
+        @keyframes itemIn {
+          from { opacity: 0; transform: translateX(-10px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .item-dot {
+          width: 10px; height: 10px;
+          border-radius: 50%;
+          flex-shrink: 0;
+          transition: background 0.3s;
+        }
+        .item-dot.done-true  { background: #34d399; box-shadow: 0 0 8px #34d399; }
+        .item-dot.done-false { background: #f87171; box-shadow: 0 0 8px #f87171; }
+
+        .item-title {
+          flex: 1;
+          font-weight: 500;
+          font-size: 0.95rem;
+        }
+        .item-title.strikethrough { text-decoration: line-through; color: rgba(255,255,255,0.4); }
+
+        .item-status {
+          font-size: 0.75rem;
+          font-weight: 600;
+          padding: 3px 10px;
+          border-radius: 999px;
+          flex-shrink: 0;
+        }
+        .status-done { background: rgba(52,211,153,0.15); color: #34d399; border: 1px solid #34d399; }
+        .status-todo { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid #f87171; }
+
+        .item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+        /* ── info panel ── */
+        pre#info {
+          background: rgba(0,0,0,0.4);
+          border: 1px solid rgba(255,255,255,0.08);
+          border-radius: 14px;
+          padding: 20px;
+          font-family: 'Courier New', monospace;
+          font-size: 0.85rem;
+          color: #6ee7b7;
+          overflow-x: auto;
+          line-height: 1.6;
+          min-height: 80px;
+        }
+
+        .empty-state {
+          text-align: center;
+          color: rgba(255,255,255,0.35);
+          padding: 24px;
+          font-size: 0.9rem;
+        }
+
+        .toast {
+          position: fixed;
+          bottom: 28px;
+          right: 28px;
+          background: linear-gradient(135deg, #6366f1, #8b5cf6);
+          color: #fff;
+          padding: 13px 22px;
+          border-radius: 12px;
+          font-size: 0.88rem;
+          font-weight: 500;
+          box-shadow: 0 8px 30px rgba(99,102,241,0.45);
+          animation: toastIn 0.35s ease;
+          z-index: 999;
+        }
+        @keyframes toastIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
       </style>
     </head>
     <body>
-      <div class="box">
-        <h1>GitOps Managed by ArgoCD</h1>
-        <p>Namespace: web</p>
-        <h1> 
-         EM YEU TAT CA MOI NGUOI A, CHO EM 10Đ NHA
-        </h1>
-        <p>Deployed from GitHub repository</p>
+      <div class="orb orb1"></div>
+      <div class="orb orb2"></div>
+      <div class="orb orb3"></div>
+
+      <header>
+        <div class="badge">☁️ W9 · Kubernetes · GitOps</div>
+        <h1>Frontend + Backend CRUD on AWS</h1>
+        <p class="subtitle">Student: <strong style="color:#f9a8d4">Nguyen Van Tuan Anh</strong> · Flask backend running inside Kubernetes, exposed via AWS ALB</p>
+      </header>
+
+      <!-- Create Item -->
+      <div class="card">
+        <h2><span class="icon">✏️</span> Create New Item</h2>
+        <div class="input-row">
+          <input type="text" id="titleInput" placeholder="Enter item title..." onkeydown="if(event.key==='Enter') createItem()" />
+          <button class="btn btn-primary" onclick="createItem()">➕ Add Item</button>
+          <button class="btn btn-reload" onclick="loadItems()">🔄 Reload</button>
+        </div>
       </div>
+
+      <!-- Items List -->
+      <div class="card">
+        <h2><span class="icon">📋</span> Items</h2>
+        <ul id="items"><li class="empty-state">Loading…</li></ul>
+      </div>
+
+      <!-- Backend Info -->
+      <div class="card">
+        <h2><span class="icon">🖥️</span> Backend Info</h2>
+        <button class="btn btn-info" onclick="loadInfo()" style="margin-bottom:16px">📡 Call /api/info</button>
+        <pre id="info">Waiting for backend response…</pre>
+      </div>
+
+      <script>
+        function showToast(msg) {
+          const t = document.createElement('div');
+          t.className = 'toast';
+          t.textContent = msg;
+          document.body.appendChild(t);
+          setTimeout(() => t.remove(), 2800);
+        }
+
+        async function loadInfo() {
+          const pre = document.getElementById('info');
+          pre.textContent = 'Fetching…';
+          try {
+            const r = await fetch('/api/info');
+            const d = await r.json();
+            pre.textContent = JSON.stringify(d, null, 2);
+          } catch(e) {
+            pre.textContent = 'Error: ' + e.message;
+          }
+        }
+
+        async function loadItems() {
+          try {
+            const r = await fetch('/api/items');
+            const data = await r.json();
+            const list = document.getElementById('items');
+            list.innerHTML = '';
+
+            if (!data.length) {
+              list.innerHTML = '<li class="empty-state">No items yet — create one above!</li>';
+              return;
+            }
+
+            data.forEach((item, i) => {
+              const li = document.createElement('li');
+              li.className = 'item-card';
+              li.style.animationDelay = (i * 0.05) + 's';
+              li.innerHTML = `
+                <div class="item-dot done-${item.done}"></div>
+                <span class="item-title ${item.done ? 'strikethrough' : ''}">${item.title}</span>
+                <span class="item-status ${item.done ? 'status-done' : 'status-todo'}">${item.done ? '✓ Done' : '○ Todo'}</span>
+                <div class="item-actions">
+                  <button class="btn btn-done btn-sm" onclick="toggleDone(${item.id}, ${!item.done})">
+                    ${item.done ? '↩ Undo' : '✓ Done'}
+                  </button>
+                  <button class="btn btn-rename btn-sm" onclick="renameItem(${item.id})">✏️</button>
+                  <button class="btn btn-delete btn-sm" onclick="deleteItem(${item.id})">🗑️</button>
+                </div>
+              `;
+              list.appendChild(li);
+            });
+          } catch(e) {
+            document.getElementById('items').innerHTML = '<li class="empty-state">Failed to load items.</li>';
+          }
+        }
+
+        async function createItem() {
+          const input = document.getElementById('titleInput');
+          const title = input.value.trim();
+          if (!title) { showToast('⚠️ Please enter a title'); return; }
+
+          await fetch('/api/items', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title})
+          });
+
+          input.value = '';
+          showToast('✅ Item created!');
+          loadItems();
+        }
+
+        async function toggleDone(id, done) {
+          await fetch(`/api/items/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({done})
+          });
+          showToast(done ? '✅ Marked as done!' : '↩️ Marked as todo');
+          loadItems();
+        }
+
+        async function renameItem(id) {
+          const title = prompt('Enter new title:');
+          if (!title) return;
+          await fetch(`/api/items/${id}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({title})
+          });
+          showToast('✏️ Item renamed!');
+          loadItems();
+        }
+
+        async function deleteItem(id) {
+          if (!confirm('Delete this item?')) return;
+          await fetch(`/api/items/${id}`, { method: 'DELETE' });
+          showToast('🗑️ Item deleted!');
+          loadItems();
+        }
+
+        loadInfo();
+        loadItems();
+      </script>
     </body>
     </html>
