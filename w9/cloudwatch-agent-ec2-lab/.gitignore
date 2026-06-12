@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Local temp files
+*.tmp
+*.bak
+
+# AWS credentials must never be committed
+.aws/
+credentials
+config.local
+.env
