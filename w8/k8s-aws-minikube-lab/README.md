@@ -39,9 +39,7 @@ w9-gitops/
 
 Evidence:
 
-```text
-w9-gitops/01-argocd-pods-running.png
-```
+![ArgoCD Pods Running](evidence/w9-gitops/01-argocd-pods-running.png)
 
 This evidence shows that ArgoCD was installed successfully in the Kubernetes cluster. The ArgoCD components such as the API server, repo server, application controller, Redis, and Dex are running in the `argocd` namespace.
 
@@ -53,9 +51,7 @@ This confirms that the cluster is ready to manage applications using GitOps.
 
 Evidence:
 
-```text
-w9-gitops/02-argocd-applications.png
-```
+![ArgoCD Applications](evidence/w9-gitops/02-argocd-applications.png)
 
 This evidence shows the ArgoCD Applications created through the App-of-Apps pattern.
 
@@ -78,9 +74,7 @@ This proves that the system is managed declaratively from Git and synchronized i
 
 Evidence:
 
-```text
-w9-gitops/03-namespaces-created.png
-```
+![Namespaces Created](evidence/w9-gitops/03-namespaces-created.png)
 
 This evidence shows that the required namespaces were created from Git-managed Kubernetes manifests.
 
@@ -102,9 +96,7 @@ This confirms that the cluster structure is reproducible from Git.
 
 Evidence:
 
-```text
-w9-gitops/04-web-namespace-resources.png
-```
+![Web Namespace Resources](evidence/w9-gitops/04-web-namespace-resources.png)
 
 This evidence shows the frontend application resources deployed in the `web` namespace.
 
@@ -126,10 +118,8 @@ This proves that the frontend application is running in Kubernetes and managed b
 
 Evidence:
 
-```text
-w9-gitops/05-alb-gitops-success.png
-w9-gitops/06-alb-gitops-success.png
-```
+![ALB GitOps Success 1](evidence/w9-gitops/05-alb-gitops-success.png)
+![ALB GitOps Success 2](evidence/w9-gitops/06-alb-gitops-success.png)
 
 These screenshots show that the frontend application can be accessed through the AWS Application Load Balancer URL.
 
@@ -152,9 +142,7 @@ This proves that the GitOps-managed frontend application is reachable from outsi
 
 Evidence:
 
-```text
-w9-gitops/07-self-heal-test.png
-```
+![Self Heal Test](evidence/w9-gitops/07-self-heal-test.png)
 
 This evidence shows that ArgoCD self-healing works.
 
@@ -178,9 +166,7 @@ w9-obs-canary/
 
 Evidence:
 
-```text
-w9-obs-canary/01-argocd-applications.png
-```
+![ArgoCD Applications Observability](evidence/w9-obs-canary/01-argocd-applications.png)
 
 This evidence shows the ArgoCD applications used for the observability and canary rollout lab.
 
@@ -202,9 +188,7 @@ This confirms that the observability stack, Argo Rollouts, and backend API are m
 
 Evidence:
 
-```text
-w9-obs-canary/02-observability-pods.png
-```
+![Observability Pods](evidence/w9-obs-canary/02-observability-pods.png)
 
 This evidence shows that the observability stack is running in the `observability` namespace.
 
@@ -225,9 +209,7 @@ This proves that the cluster has a monitoring stack for collecting and analyzing
 
 Evidence:
 
-```text
-w9-obs-canary/03-argo-rollouts-crd.png
-```
+![Argo Rollouts CRD](evidence/w9-obs-canary/03-argo-rollouts-crd.png)
 
 This evidence shows that the Argo Rollouts Custom Resource Definitions were installed successfully.
 
@@ -248,9 +230,7 @@ This proves that the cluster supports progressive delivery resources such as Rol
 
 Evidence:
 
-```text
-w9-obs-canary/04-api-resources-demo.png
-```
+![API Resources Demo](evidence/w9-obs-canary/04-api-resources-demo.png)
 
 This evidence shows that the backend API is deployed in the `demo` namespace.
 
@@ -272,9 +252,7 @@ This proves that the backend API is deployed using Argo Rollouts and exposed int
 
 Evidence:
 
-```text
-w9-obs-canary/05-api-version-v2.png
-```
+![API Version V2](evidence/w9-obs-canary/05-api-version-v2.png)
 
 This evidence shows that the backend API is running the stable version:
 
@@ -290,9 +268,7 @@ This confirms the stable baseline before testing canary rollout and failure inje
 
 Evidence:
 
-```text
-w9-obs-canary/06-prometheus-api-metric.png
-```
+![Prometheus API Metric](evidence/w9-obs-canary/06-prometheus-api-metric.png)
 
 This evidence shows that Prometheus successfully collects metrics from the backend API.
 
@@ -308,9 +284,7 @@ This proves that the backend API is observable and that its metrics can be used 
 
 Evidence:
 
-```text
-w9-obs-canary/slo-analysis-template-query.png
-```
+![SLO Analysis Template Query](evidence/w9-obs-canary/slo-analysis-template-query.png)
 
 This evidence shows the backend SLO defined using an Argo Rollouts AnalysisTemplate.
 
@@ -344,9 +318,7 @@ This means the canary version is considered healthy only if at least 95% of requ
 
 Evidence:
 
-```text
-w9-obs-canary/07-backend-slo-cloudwatch-alarm.png
-```
+![Backend SLO CloudWatch Alarm](evidence/w9-obs-canary/07-backend-slo-cloudwatch-alarm.png)
 
 This evidence shows a CloudWatch Alarm configured for alerting.
 
@@ -367,9 +339,7 @@ This proves that the system has an alerting mechanism connected to email notific
 
 Evidence:
 
-```text
-w9-obs-canary/mailConfrim.png
-```
+![Mail Confirm](evidence/w9-obs-canary/mailConfrim.png)
 
 This evidence shows that the email subscription for SNS was confirmed.
 
@@ -381,9 +351,7 @@ Without confirmation, SNS cannot send alert emails to the personal email address
 
 Evidence:
 
-```text
-w9-obs-canary/03-ec2-cpu-load-running.png
-```
+![EC2 CPU Load Running](evidence/w9-obs-canary/03-ec2-cpu-load-running.png)
 
 This evidence shows CPU load being generated on the EC2 instance.
 
@@ -397,9 +365,7 @@ This proves that the alert was based on real AWS metric data, not a fake or hard
 
 Evidence:
 
-```text
-w9-obs-canary/04-cloudwatch-alarm-state-alarm.png
-```
+![CloudWatch Alarm State Alarm](evidence/w9-obs-canary/04-cloudwatch-alarm-state-alarm.png)
 
 This evidence shows that the CloudWatch Alarm entered the `ALARM` state.
 
@@ -411,9 +377,7 @@ This proves that the configured threshold was breached and the alert was trigger
 
 Evidence:
 
-```text
-w9-obs-canary/05-gmail-received-cloudwatch-alarm.png
-```
+![Gmail Received CloudWatch Alarm](evidence/w9-obs-canary/05-gmail-received-cloudwatch-alarm.png)
 
 This evidence shows that the alert email was received in the personal Gmail inbox.
 
@@ -433,9 +397,7 @@ CloudWatch Alarm
 
 Evidence:
 
-```text
-w9-obs-canary/07-canary-v3-paused-25.png
-```
+![Canary V3 Paused at 25%](evidence/w9-obs-canary/07-canary-v3-paused-25.png)
 
 This evidence shows that a new good version was released using Canary strategy and paused at 25% traffic.
 
@@ -447,9 +409,7 @@ This proves that Argo Rollouts does not immediately move a new version to 100% t
 
 Evidence:
 
-```text
-w9-obs-canary/08-canary-v3-promoted-100.png
-```
+![Canary V3 Promoted to 100%](evidence/w9-obs-canary/08-canary-v3-promoted-100.png)
 
 This evidence shows that the good canary version was promoted successfully to 100%.
 
@@ -461,9 +421,7 @@ This proves that a healthy version can be gradually released and then promoted t
 
 Evidence:
 
-```text
-w9-obs-canary/09-bad-canary-paused-25.png
-```
+![Bad Canary Paused at 25%](evidence/w9-obs-canary/09-bad-canary-paused-25.png)
 
 This evidence shows that a bad version was released as a canary and only received partial traffic.
 
@@ -477,9 +435,7 @@ This proves that the bad version was controlled by the canary strategy and was n
 
 Evidence:
 
-```text
-w9-obs-canary/10-bad-version-error-500.png
-```
+![Bad Version Error 500](evidence/w9-obs-canary/10-bad-version-error-500.png)
 
 This evidence shows that the bad version returned HTTP 500 errors.
 
@@ -491,9 +447,7 @@ This proves that the injected failure was working and that the canary version wa
 
 Evidence:
 
-```text
-w9-obs-canary/11-bad-version-aborted.png
-```
+![Bad Version Aborted](evidence/w9-obs-canary/11-bad-version-aborted.png)
 
 This evidence shows that the bad canary version was aborted and did not become the stable version.
 
@@ -507,9 +461,7 @@ This confirms the rollback behavior of Argo Rollouts when a bad release is detec
 
 Evidence:
 
-```text
-w9-obs-canary/01-before-auto-abort-api-healthy.png
-```
+![API Healthy Before Auto Abort](evidence/w9-obs-canary/01-before-auto-abort-api-healthy.png)
 
 This evidence shows that the API was healthy before testing automatic abort.
 
@@ -521,9 +473,7 @@ The stable version was running normally before injecting the bad version.
 
 Evidence:
 
-```text
-w9-obs-canary/02-load-generator-running.png
-```
+![Load Generator Running](evidence/w9-obs-canary/02-load-generator-running.png)
 
 This evidence shows that a load generator was sending continuous traffic to the backend API.
 
@@ -535,9 +485,7 @@ This is required so that Prometheus can collect enough request metrics for the A
 
 Evidence:
 
-```text
-w9-obs-canary/03-commit-bad-api-auto-abort.png
-```
+![Commit Bad API Auto Abort](evidence/w9-obs-canary/03-commit-bad-api-auto-abort.png)
 
 This evidence shows the Git commit used to release the bad API version for the auto-abort test.
 
@@ -556,9 +504,7 @@ This proves that the test was triggered through Git, following GitOps principles
 
 Evidence:
 
-```text
-w9-obs-canary/04-auto-abort-rollout.png.png
-```
+![Auto Abort Rollout](evidence/w9-obs-canary/04-auto-abort-rollout.png.png)
 
 This evidence shows that the bad canary version was automatically aborted.
 
@@ -579,9 +525,7 @@ This proves that Argo Rollouts used the AnalysisTemplate result to automatically
 
 Evidence:
 
-```text
-w9-obs-canary/05-analysisrun-failed.png
-```
+![AnalysisRun Failed](evidence/w9-obs-canary/05-analysisrun-failed.png)
 
 This evidence shows that the AnalysisRun failed because the `success-rate` metric did not satisfy the SLO condition.
 
@@ -593,9 +537,7 @@ This proves that the automatic abort was driven by metric analysis, not by a man
 
 Evidence:
 
-```text
-w9-obs-canary/06-api-still-v2-after-auto-abort.png
-```
+![API Still V2 After Auto Abort](evidence/w9-obs-canary/06-api-still-v2-after-auto-abort.png)
 
 This evidence shows that after the bad canary was automatically aborted, the API still served the stable version:
 
@@ -613,9 +555,7 @@ This proves that the failed canary did not replace the stable version.
 
 Evidence:
 
-```text
-w9-obs-canary/12-final-api-healthy.png
-```
+![Final API Healthy](evidence/w9-obs-canary/12-final-api-healthy.png)
 
 This evidence shows that the API returned to a healthy state after testing the failed canary release.
 
@@ -631,9 +571,7 @@ version: v2
 
 Evidence:
 
-```text
-w9-obs-canary/13-git-log-rollback-commits.png
-```
+![Git Log Rollback Commits](evidence/w9-obs-canary/13-git-log-rollback-commits.png)
 
 This evidence shows the Git history containing test commits and revert commits.
 
