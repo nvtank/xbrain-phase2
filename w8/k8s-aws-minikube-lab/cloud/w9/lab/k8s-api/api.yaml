@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: w9-api:1
+          image: w9-api:crud-v1
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
