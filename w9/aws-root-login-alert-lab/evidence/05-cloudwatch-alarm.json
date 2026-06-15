@@ -1,0 +1,34 @@
+$ aws cloudwatch describe-alarms --alarm-names RootAccountLoginAlarm --region us-east-1 --output json
+
+{
+    "MetricAlarms": [
+        {
+            "AlarmName": "RootAccountLoginAlarm",
+            "AlarmArn": "arn:aws:cloudwatch:us-east-1:995310839463:alarm:RootAccountLoginAlarm",
+            "AlarmDescription": "Alert when AWS Root account is used",
+            "AlarmConfigurationUpdatedTimestamp": "2026-06-15T08:59:57.022000+00:00",
+            "ActionsEnabled": true,
+            "OKActions": [],
+            "AlarmActions": [
+                "arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic"
+            ],
+            "InsufficientDataActions": [],
+            "StateValue": "ALARM",
+            "StateReason": "Threshold Crossed: 1 out of the last 1 datapoints [1.0 (15/06/26 08:56:00)] was greater than or equal to the threshold (1.0) (minimum 1 datapoint for OK -> ALARM transition).",
+            "StateReasonData": "{\"version\":\"1.0\",\"queryDate\":\"2026-06-15T09:01:38.237+0000\",\"startDate\":\"2026-06-15T08:56:00.000+0000\",\"statistic\":\"Sum\",\"period\":300,\"recentDatapoints\":[1.0],\"threshold\":1.0,\"evaluatedDatapoints\":[{\"timestamp\":\"2026-06-15T08:56:00.000+0000\",\"sampleCount\":1.0,\"value\":1.0}]}",
+            "StateUpdatedTimestamp": "2026-06-15T09:01:38.239000+00:00",
+            "MetricName": "RootAccountLoginCount",
+            "Namespace": "Security",
+            "Statistic": "Sum",
+            "Dimensions": [],
+            "Period": 300,
+            "EvaluationPeriods": 1,
+            "DatapointsToAlarm": 1,
+            "Threshold": 1.0,
+            "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+            "TreatMissingData": "notBreaching",
+            "StateTransitionedTimestamp": "2026-06-15T09:01:38.239000+00:00"
+        }
+    ],
+    "CompositeAlarms": []
+}

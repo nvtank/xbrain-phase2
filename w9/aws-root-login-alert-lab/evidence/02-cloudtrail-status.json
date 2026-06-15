@@ -1,0 +1,13 @@
+$ aws cloudtrail get-trail-status --name root-login-alert-trail --region us-east-1 --output json
+
+{
+    "IsLogging": true,
+    "StartLoggingTime": "2026-06-15T15:59:50.642000+07:00",
+    "LatestCloudWatchLogsDeliveryTime": "2026-06-15T16:02:08.124000+07:00",
+    "LatestDeliveryAttemptTime": "",
+    "LatestNotificationAttemptTime": "",
+    "LatestNotificationAttemptSucceeded": "",
+    "LatestDeliveryAttemptSucceeded": "",
+    "TimeLoggingStarted": "2026-06-15T08:59:50Z",
+    "TimeLoggingStopped": ""
+}

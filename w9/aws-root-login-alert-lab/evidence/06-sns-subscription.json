@@ -1,0 +1,13 @@
+$ aws sns list-subscriptions-by-topic --topic-arn arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic --region us-east-1 --output json
+
+{
+    "Subscriptions": [
+        {
+            "SubscriptionArn": "arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic:505bf7ca-a384-45ee-b0e3-4bb08a2798ce",
+            "Owner": "995310839463",
+            "Protocol": "email",
+            "Endpoint": "tuannguyen.120910@gmail.com",
+            "TopicArn": "arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic"
+        }
+    ]
+}

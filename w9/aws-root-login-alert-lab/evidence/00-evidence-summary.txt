@@ -1,0 +1,9 @@
+AWS Root Account Login Alert Lab Evidence
+Generated at: 2026-06-15T09:02:07Z
+Region: us-east-1
+Trail: root-login-alert-trail
+Log group: /aws/cloudtrail/root-login-alert
+Metric filter: RootAccountLoginFilter
+Alarm: RootAccountLoginAlarm
+S3 bucket: root-login-alert-995310839463-us-east-1
+SNS topic: arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic

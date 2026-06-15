@@ -1,0 +1,15 @@
+$ aws logs describe-log-groups --log-group-name-prefix /aws/cloudtrail/root-login-alert --region us-east-1 --output json
+
+{
+    "logGroups": [
+        {
+            "logGroupName": "/aws/cloudtrail/root-login-alert",
+            "creationTime": 1781512915973,
+            "metricFilterCount": 1,
+            "arn": "arn:aws:logs:us-east-1:995310839463:log-group:/aws/cloudtrail/root-login-alert:*",
+            "storedBytes": 0,
+            "logGroupClass": "STANDARD",
+            "logGroupArn": "arn:aws:logs:us-east-1:995310839463:log-group:/aws/cloudtrail/root-login-alert"
+        }
+    ]
+}

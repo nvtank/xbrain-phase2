@@ -1,0 +1,35 @@
+$ ./scripts/status.sh
+
+
+==> CloudTrail status
+{
+    "IsLogging": true,
+    "LatestDeliveryTime": null,
+    "LatestCloudWatchLogsDeliveryTime": "2026-06-15T16:02:08.124000+07:00"
+}
+
+==> Metric filter
+[
+    {
+        "Name": "RootAccountLoginFilter",
+        "Pattern": "{ $.userIdentity.type = \"Root\" && $.eventType != \"AwsServiceEvent\" }",
+        "Metric": "RootAccountLoginCount",
+        "Namespace": "Security"
+    }
+]
+
+==> Alarm status
+{
+    "Name": "RootAccountLoginAlarm",
+    "State": "ALARM",
+    "Reason": "Threshold Crossed: 1 out of the last 1 datapoints [1.0 (15/06/26 08:56:00)] was greater than or equal to the threshold (1.0) (minimum 1 datapoint for OK -> ALARM transition)."
+}
+
+==> SNS subscription
+[
+    {
+        "Endpoint": "tuannguyen.120910@gmail.com",
+        "Status": "arn:aws:sns:us-east-1:995310839463:root-login-alert-sns-topic:505bf7ca-a384-45ee-b0e3-4bb08a2798ce",
+        "Protocol": "email"
+    }
+]

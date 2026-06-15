@@ -1,0 +1,20 @@
+$ aws logs describe-metric-filters --log-group-name /aws/cloudtrail/root-login-alert --filter-name-prefix RootAccountLoginFilter --region us-east-1 --output json
+
+{
+    "metricFilters": [
+        {
+            "filterName": "RootAccountLoginFilter",
+            "filterPattern": "{ $.userIdentity.type = \"Root\" && $.eventType != \"AwsServiceEvent\" }",
+            "metricTransformations": [
+                {
+                    "metricName": "RootAccountLoginCount",
+                    "metricNamespace": "Security",
+                    "metricValue": "1"
+                }
+            ],
+            "creationTime": 1781513995642,
+            "logGroupName": "/aws/cloudtrail/root-login-alert",
+            "applyOnTransformedLogs": false
+        }
+    ]
+}
