@@ -1,0 +1,7 @@
+$ aws sts get-caller-identity --output json
+
+{
+    "UserId": "AIDA6PPJGE2T22K6VSJSZ",
+    "Account": "995310839463",
+    "Arn": "arn:aws:iam::995310839463:user/nvtank"
+}

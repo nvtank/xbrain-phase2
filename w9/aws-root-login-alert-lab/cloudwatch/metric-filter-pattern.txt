@@ -1,0 +1,1 @@
+{ $.userIdentity.type = "Root" && $.eventType != "AwsServiceEvent" }

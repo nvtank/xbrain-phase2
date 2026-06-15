@@ -1,0 +1,76 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CloudTrailForRootLoginAlertLab",
+      "Effect": "Allow",
+      "Action": [
+        "cloudtrail:CreateTrail",
+        "cloudtrail:UpdateTrail",
+        "cloudtrail:StartLogging",
+        "cloudtrail:StopLogging",
+        "cloudtrail:DeleteTrail",
+        "cloudtrail:GetTrailStatus",
+        "cloudtrail:DescribeTrails"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "IamRoleForCloudTrailCloudWatchLogs",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateRole",
+        "iam:GetRole",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:DeleteRole",
+        "iam:PassRole"
+      ],
+      "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/root-login-alert-cloudtrail-cwlogs-role"
+    },
+    {
+      "Sid": "S3BucketForCloudTrail",
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:PutBucketPublicAccessBlock",
+        "s3:PutBucketPolicy",
+        "s3:DeleteBucketPolicy",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:DeleteBucket"
+      ],
+      "Resource": "arn:aws:s3:::root-login-alert-<ACCOUNT_ID>-<REGION>"
+    },
+    {
+      "Sid": "S3ObjectsForCloudTrail",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::root-login-alert-<ACCOUNT_ID>-<REGION>/*"
+    },
+    {
+      "Sid": "CloudWatchLogsMetricsAlarmAndSns",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:DeleteLogGroup",
+        "logs:DescribeLogGroups",
+        "logs:PutMetricFilter",
+        "logs:DeleteMetricFilter",
+        "logs:DescribeMetricFilters",
+        "cloudwatch:PutMetricAlarm",
+        "cloudwatch:DeleteAlarms",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:PutMetricData",
+        "sns:CreateTopic",
+        "sns:DeleteTopic",
+        "sns:Subscribe",
+        "sns:ListSubscriptionsByTopic"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

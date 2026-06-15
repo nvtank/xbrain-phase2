@@ -1,0 +1,8 @@
+==> Sending test metric: Security/RootAccountLoginCount = 1
+
+Test metric sent.
+CloudWatch Alarm may need 1-5 minutes to enter ALARM state.
+
+Run:
+  ./scripts/status.sh
+
