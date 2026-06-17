@@ -1,0 +1,121 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8sdenyprivileged
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sDenyPrivileged
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sdenyprivileged
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          sc := object.get(container, "securityContext", {})
+          object.get(sc, "privileged", false) == true
+          msg := sprintf("privileged container is not allowed: %v", [container.name])
+        }
+
+---
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequirenonroot
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequireNonRoot
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequirenonroot
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          pod_sc := object.get(input.review.object.spec, "securityContext", {})
+          container_sc := object.get(container, "securityContext", {})
+
+          not object.get(pod_sc, "runAsNonRoot", false)
+          not object.get(container_sc, "runAsNonRoot", false)
+
+          msg := sprintf("container must set runAsNonRoot=true: %v", [container.name])
+        }
+
+---
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequireresources
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequireResources
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequireresources
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          not container.resources.requests.cpu
+          msg := sprintf("container missing resources.requests.cpu: %v", [container.name])
+        }
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          not container.resources.requests.memory
+          msg := sprintf("container missing resources.requests.memory: %v", [container.name])
+        }
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          not container.resources.limits.cpu
+          msg := sprintf("container missing resources.limits.cpu: %v", [container.name])
+        }
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          not container.resources.limits.memory
+          msg := sprintf("container missing resources.limits.memory: %v", [container.name])
+        }
+
+---
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8sallowedrepos
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sAllowedRepos
+      validation:
+        openAPIV3Schema:
+          type: object
+          properties:
+            repos:
+              type: array
+              items:
+                type: string
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8sallowedrepos
+
+        violation[{"msg": msg}] {
+          container := input.review.object.spec.containers[_]
+          image := container.imarepos := input.parameters.reposge
+          
+          not startswith_any(image, repos)
+          msg := sprintf("image repo is not allowed: %v", [image])
+        }
+
+        startswith_any(image, repos) {
+          some i
+          startswith(image, repos[i])
+        }
