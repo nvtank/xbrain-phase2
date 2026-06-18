@@ -14,3 +14,5 @@ k8s-monitoring/alertmanager-config.yaml
 # Cosign private key - never commit
 cosign.key
 *.key
+signing/cosign.key
+
