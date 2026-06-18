@@ -20,6 +20,7 @@ jobs:
     permissions:
       contents: write
       packages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -54,7 +55,11 @@ jobs:
             type=raw,value=${{ steps.semver.outputs.version }}
             type=sha,prefix=v${{ steps.semver.outputs.version }}-
 
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
       - name: Build and push Docker image
+        id: build
         uses: docker/build-push-action@v6
         with:
           context: ./src/api
@@ -62,9 +67,19 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+      - name: Sign image with cosign
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          cosign sign --yes --key env://COSIGN_PRIVATE_KEY \
+            "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${IMAGE_DIGEST}"
+
       - name: Update rollout.yaml with new version
         run: |
-          sed -i "s|image: ghcr.io/.*/w10-api:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.semver.outputs.version }}|g" app-api/rollout.yaml
+          SHA=$(echo "${{ github.sha }}" | cut -c1-40)
+          sed -i "s|image: ghcr.io/.*/w10-api:.*|image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${SHA}|g" app-api/rollout.yaml
           sed -i "s|value: \"v.*\"|value: \"v${{ steps.semver.outputs.version }}\"|g" app-api/rollout.yaml
 
       - name: Commit and push version update

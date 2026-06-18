@@ -5,7 +5,7 @@ metadata:
 spec:
   mode: enforce
   images:
-    - glob: "**"
+    - glob: "ghcr.io/nvtank/w10-api:*"
   authorities:
     - name: authority-0
       key:
