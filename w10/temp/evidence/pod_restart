@@ -1,0 +1,8 @@
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ kubectl get pod secret-reader -n demo
+NAME            READY   STATUS    RESTARTS   AGE
+secret-reader   1/1     Running   0          5m15s
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ 

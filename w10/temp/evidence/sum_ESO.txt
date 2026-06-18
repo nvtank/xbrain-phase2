@@ -1,0 +1,25 @@
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ kubectl get pods -n external-secrets
+kubectl get secretstore -n demo
+kubectl get externalsecret -n demo
+kubectl get secret db-secret -n demo
+kubectl get secret db-secret -n demo -o jsonpath='{.data.password}' | base64 -d
+echo
+kubectl get pod secret-reader -n demo
+NAME                                                    READY   STATUS    RESTARTS   AGE
+eso-external-secrets-5cb8f46bd4-chlgs                   1/1     Running   0          38m
+eso-external-secrets-cert-controller-5cfcc8d8df-7kpwq   1/1     Running   0          38m
+eso-external-secrets-webhook-68889d569-mlhkt            1/1     Running   0          38m
+NAME        AGE   STATUS   CAPABILITIES   READY
+aws-store   24m   Valid    ReadWrite      True
+NAME       STORE       REFRESH INTERVAL   STATUS         READY
+db-creds   aws-store   30s                SecretSynced   True
+NAME        TYPE     DATA   AGE
+db-secret   Opaque   1      17m
+pass-v3
+NAME            READY   STATUS    RESTARTS   AGE
+secret-reader   1/1     Running   0          5m54s
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ 
