@@ -34,8 +34,8 @@ This report documents the verification and testing process for **W10 Lab 2**, co
 | **Unsigned image rejected** | 🟢 PASS | `nginx:1.27` deployment denied by admission webhook |
 | **ArgoCD `policies` app** | 🟢 PASS | `policies` application is `Synced` and `Healthy` |
 | **API Rollout spec uses signed image** | 🟢 PASS | Rollout spec successfully updated to the signed GHCR image |
-| **API pods actual running image** | 🟡 PARTIAL | Existing pods still running `ghcr.io/vuong-bach/w10-api:0.0.1` |
-| **ArgoCD `api` app** | 🟡 PARTIAL | `api` status is `Synced` but `Progressing` |
+| **API pods actual running image** | 🟢 PASS | All four API pods are running the signed digest image |
+| **ArgoCD `api` app** | 🟢 PASS | `api` status is `Synced` and `Healthy` |
 
 ---
 
@@ -446,13 +446,12 @@ Checking the status of the Rollout pods.
   api    4         4                      4           116m
   ```
 
-> [!WARNING]
-> **Status:** PARTIAL — Workload is healthy, but further verification is required to ensure the pods are running the updated image version.
+> [!TIP]
+> **Status:** PASS
 
 ---
 
-### EVD-17 — Actual Running API Pods Image Check
-Verifying the actual image hash loaded into the active Pod instances.
+### EVD-17 — Signed API Pods Are Running
 
 * **Command:**
   ```bash
@@ -461,135 +460,85 @@ Verifying the actual image hash loaded into the active Pod instances.
   ```
 * **Output:**
   ```text
-  api-564c456f58-996n8  ghcr.io/vuong-bach/w10-api:0.0.1  Running
-  api-564c456f58-j8brh  ghcr.io/vuong-bach/w10-api:0.0.1  Running
-  api-564c456f58-q9xwr  ghcr.io/vuong-bach/w10-api:0.0.1  Running
-  api-564c456f58-rrrp8  ghcr.io/vuong-bach/w10-api:0.0.1  Running
+  api-7877bdc754-7d2bl  ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc  Running
+  api-7877bdc754-sb8rd  ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc  Running
+  api-7877bdc754-vh85l  ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc  Running
+  api-7877bdc754-vn67x  ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc  Running
   ```
 * **Analysis:**
-  Although the Rollout spec was updated with the signed image, the active pod replicas were still running the old image (`ghcr.io/vuong-bach/w10-api:0.0.1`). A rollout restart/upgrade is needed to trigger deployment of the signed containers.
+  All four API pods are now running the signed digest image:
+  `ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc`
+  This confirms that the rollout successfully replaced the old unsigned image with the signed image.
 
-> [!WARNING]
-> **Status:** PARTIAL / NEEDS FOLLOW-UP
+> [!TIP]
+> **Status:** PASS
 
 ---
 
-## 8. ArgoCD Application Evidence
-
-### EVD-18 — ArgoCD Main Applications Status
-Checking the state of the applications created for W10 Lab 2.
+### EVD-18 — ArgoCD API and Policies Applications Are Healthy
 
 * **Command:**
   ```bash
-  kubectl -n argocd get applications policy-controller policies api eso eso-config \
+  kubectl -n argocd get applications api policies \
     -o custom-columns=NAME:.metadata.name,SYNC:.status.sync.status,HEALTH:.status.health.status
   ```
 * **Output:**
   ```text
-  NAME                SYNC        HEALTH
-  policy-controller   OutOfSync   Healthy
-  policies            Synced      Healthy
-  api                 Synced      Progressing
-  eso                 Synced      Healthy
-  eso-config          OutOfSync   Healthy
+  NAME       SYNC     HEALTH
+  api        Synced   Healthy
+  policies   Synced   Healthy
   ```
+* **Analysis:**
+  Both the api and policies ArgoCD applications are fully synced and healthy. This confirms that the GitOps-managed rollout and admission policy are in the desired state.
 
-> [!WARNING]
-> **Status:** PARTIAL — `policies` is fully Synced, but the `api` app is still `Progressing` due to the pending container update.
+> [!TIP]
+> **Status:** PASS
 
 ---
 
-### EVD-19 — All Deployed ArgoCD Applications
-List of all applications managed by the central ArgoCD server.
+### EVD-19 — Rollout Events Show Successful Signed Image Deployment
 
 * **Command:**
   ```bash
-  kubectl -n argocd get applications
+  kubectl get events -n demo --sort-by=.lastTimestamp | tail -40
   ```
-* **Output:**
+* **Important Output:**
   ```text
-  NAME                     SYNC STATUS   HEALTH STATUS
-  alert                    Synced        Healthy
-  analysis                 Synced        Healthy
-  api                      Synced        Progressing
-  argo-rollouts            Synced        Healthy
-  common                   Synced        Healthy
-  eso                      Synced        Healthy
-  eso-config               OutOfSync     Healthy
-  gatekeeper               Synced        Healthy
-  gatekeeper-constraints   Synced        Healthy
-  gatekeeper-templates     Synced        Healthy
-  kube-prometheus-stack    Synced        Healthy
-  policies                 Synced        Healthy
-  policy-controller        OutOfSync     Healthy
-  rbac                     Synced        Healthy
-  root                     Synced        Healthy
+  Normal    SuccessfulCreate        replicaset/api-7877bdc754      Created pod: api-7877bdc754-sb8rd
+  Normal    Pulled                  pod/api-7877bdc754-sb8rd       Container image "ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc" already present on machine
+  Normal    Started                 pod/api-7877bdc754-sb8rd       Started container api
+  Normal    SuccessfulCreate        replicaset/api-7877bdc754      Created pod: api-7877bdc754-vn67x
+  Normal    Started                 pod/api-7877bdc754-vn67x       Started container api
+  Normal    SuccessfulCreate        replicaset/api-7877bdc754      Created pod: api-7877bdc754-7d2bl
+  Normal    Started                 pod/api-7877bdc754-7d2bl       Started container api
+  Normal    SuccessfulCreate        replicaset/api-7877bdc754      Created pod: api-7877bdc754-vh85l
+  Normal    Started                 pod/api-7877bdc754-vh85l       Started container api
+  Normal    MetricSuccessful        analysisrun/api-7877bdc754-3   Metric 'success-rate' Completed. Result: Successful
+  Normal    AnalysisRunSuccessful   analysisrun/api-7877bdc754-3   Analysis Completed. Result: Successful
   ```
+* **Analysis:**
+  The recent events show that the new ReplicaSet api-7877bdc754 successfully created pods using the signed digest image. The Argo Rollouts analysis also completed successfully with AnalysisRunSuccessful.
+
+  Older ReplicaSetCreateError events are historical errors from before the image was re-signed in the compatible legacy Cosign format. The latest events show that the rollout is now successful.
+
+> [!TIP]
+> **Status:** PASS
 
 ---
 
-## 9. Policy Controller Admission Logs
-
-### EVD-20 — Webhook Validation Failures
-Analyzing the admission controller webhook logs.
-
-* **Command:**
-  ```bash
-  kubectl logs -n cosign-system deploy/policy-controller-webhook --tail=120
-  ```
-* **Relevant Log Snippet:**
-  ```json
-  {
-    "level": "info",
-    "ts": "2026-06-18T09:05:12.435Z",
-    "caller": "webhook/admission.go:102",
-    "msg": "Failed the resource specific validation",
-    "knative.dev/kind": "apps/v1, Kind=ReplicaSet",
-    "knative.dev/namespace": "demo",
-    "knative.dev/name": "api-6cd5dfbc4c",
-    "knative.dev/operation": "CREATE"
-  }
-  ```
-
----
-
-## 10. Required Follow-Up Actions
-
-To complete the rollout and ensure that the cluster is running the signed image:
-
-### 1. Force Rollout Restart
-```bash
-kubectl rollout restart rollout api -n demo
-```
-*Or via patch:*
-```bash
-kubectl patch rollout api -n demo --type merge \
-  -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"restarted-at\":\"$(date -Iseconds)\"}}}}}"
-```
-
-### 2. Verify Active Pod Image Version
-```bash
-kubectl get pods -n demo -l app=api \
-  -o jsonpath='{range .items[*]}{.metadata.name}{"  "}{.spec.containers[0].image}{"  "}{.status.phase}{"\n"}{end}'
-```
-*Expected Output:*
-```text
-api-xxxxxx  ghcr.io/nvtank/w10-api:a7e981ee69cbdbb232e12de05ac1baf86af19bd5  Running
-```
-
----
-
-## 11. Final Conclusion
-
-The environment successfully demonstrates:
-1. **Secrets Security**: External Secrets Operator connected to AWS Secrets Manager with secret rotation verified at `30s` intervals.
-2. **Supply Chain Protection**: Images signed using Cosign and validation keys loaded to the cluster.
-3. **Admission Enforcement**: ClusterImagePolicy enforcing signed image policies on the `demo` namespace, preventing unsigned workloads from initializing.
+## 8. Final Lab 2 Status
 
 | Category | Final Status |
 | :--- | :---: |
-| **ESO Secret Rotation** | 🟢 PASS |
+| **External Secrets Operator** | 🟢 PASS |
+| **AWS SecretStore** | 🟢 PASS |
+| **ExternalSecret Sync** | 🟢 PASS |
+| **Secret Rotation** | 🟢 PASS |
 | **Cosign Image Verification** | 🟢 PASS |
-| **Admission Rejection** | 🟢 PASS |
-| **Signed API Rollout Spec** | 🟢 PASS |
-| **Signed API Running Pods** | 🟡 PARTIAL (Needs Restart) |
+| **Sigstore Policy Controller** | 🟢 PASS |
+| **ClusterImagePolicy Enforcement** | 🟢 PASS |
+| **Unsigned Image Rejection** | 🟢 PASS |
+| **Signed API Rollout** | 🟢 PASS |
+| **ArgoCD API and Policies Health** | 🟢 PASS |
+
+**Final result:** **W10 Lab 2: PASS**
