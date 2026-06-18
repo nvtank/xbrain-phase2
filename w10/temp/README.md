@@ -205,3 +205,14 @@ kubectl delete ns argocd
 minikube stop -p w10
 minikube delete -p w10
 ```
+
+## W10 Challenge — Onboard `payments` Tenant
+
+### Why do the old guardrails automatically apply to the new team?
+
+The existing Gatekeeper constraints and Sigstore admission policy are cluster-level or namespace-label-based controls. After the `payments` namespace is created and labeled with `policy.sigstore.dev/include=true`, the same image signing, non-root, resource limit, and owner-label requirements are automatically enforced for the new tenant without rewriting the policies.
+
+### Why Role/RoleBinding instead of ClusterRoleBinding?
+
+`Role` and `RoleBinding` scope permissions to the `payments` namespace only. This allows `payments-dev` to manage workloads inside `payments` while preventing access to the existing `demo` namespace, secrets, and RBAC objects such as RoleBindings.
+

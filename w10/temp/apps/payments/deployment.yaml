@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-api
+  namespace: payments
+  labels:
+    app: payments-api
+    owner: team-payments
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payments-api
+  template:
+    metadata:
+      labels:
+        app: payments-api
+        owner: team-payments
+    spec:
+      securityContext:
+        runAsNonRoot: true
+      containers:
+        - name: api
+          image: ghcr.io/nvtank/w10-api@sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: VERSION
+              value: payments-v0.0.1
+            - name: ERROR_RATE
+              value: "0"
+          ports:
+            - containerPort: 8080
+          securityContext:
+            runAsUser: 1000
+            allowPrivilegeEscalation: false
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
