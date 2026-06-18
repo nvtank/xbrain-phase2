@@ -1,0 +1,32 @@
+==> Deleting CloudWatch alarm
+==> Deleting metric filter
+==> Stopping and deleting CloudTrail
+==> Deleting CloudWatch log group
+==> Deleting SNS topic
+==> Deleting IAM role policy and role
+==> Emptying and deleting S3 bucket: root-login-alert-995310839463-us-east-1
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-northeast-1/2026/06/15/995310839463_CloudTrail-Digest_ap-northeast-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-northeast-3/2026/06/15/995310839463_CloudTrail-Digest_ap-northeast-3_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-southeast-1/2026/06/15/995310839463_CloudTrail-Digest_ap-southeast-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/eu-north-1/2026/06/15/995310839463_CloudTrail-Digest_eu-north-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ca-central-1/2026/06/15/995310839463_CloudTrail-Digest_ca-central-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/eu-central-1/2026/06/15/995310839463_CloudTrail-Digest_eu-central-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-southeast-2/2026/06/15/995310839463_CloudTrail-Digest_ap-southeast-2_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-south-1/2026/06/15/995310839463_CloudTrail-Digest_ap-south-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/ap-northeast-2/2026/06/15/995310839463_CloudTrail-Digest_ap-northeast-2_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/eu-west-1/2026/06/15/995310839463_CloudTrail-Digest_eu-west-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/eu-west-2/2026/06/15/995310839463_CloudTrail-Digest_eu-west-2_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/eu-west-3/2026/06/15/995310839463_CloudTrail-Digest_eu-west-3_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/sa-east-1/2026/06/15/995310839463_CloudTrail-Digest_sa-east-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/us-east-1/2026/06/15/995310839463_CloudTrail-Digest_us-east-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/us-east-2/2026/06/15/995310839463_CloudTrail-Digest_us-east-2_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail/
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/us-west-1/2026/06/15/995310839463_CloudTrail-Digest_us-west-1_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail/ap-southeast-2/2026/06/15/995310839463_CloudTrail_ap-southeast-2_20260615T0905Z_poCNIo6Kg4OOaxto.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail-Digest/us-west-2/2026/06/15/995310839463_CloudTrail-Digest_us-west-2_root-login-alert-trail_us-east-1_20260615T085950Z.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail/us-east-1/2026/06/15/995310839463_CloudTrail_us-east-1_20260615T0900Z_koOScyEr8Jg76kuU.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail/us-east-1/2026/06/15/995310839463_CloudTrail_us-east-1_20260615T0905Z_L7obfeOiJsH1VrBH.json.gz
+delete: s3://root-login-alert-995310839463-us-east-1/AWSLogs/995310839463/CloudTrail/us-east-1/2026/06/15/995310839463_CloudTrail_us-east-1_20260615T0910Z_lp4b2IozoBTVvaJP.json.gz
+==> Done.
+p bài, bao gồm cả 06-email-alert.png.
