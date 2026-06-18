@@ -27,7 +27,7 @@ spec:
         securityContext:
           runAsUser: 1000
           allowPrivilegeEscalation: false
-        image: ghcr.io/vuong-bach/w10-api:0.0.1
+        image: ghcr.io/nvtank/w10-api:a7e981ee69cbdbb232e12de05ac1baf86af19bd5
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
