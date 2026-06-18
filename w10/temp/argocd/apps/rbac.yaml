@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/nvtank/xbrain-phase2/
-    path: rbac
+    path: w10/temp/rbac
     targetRevision: w10
   destination:
     server: https://kubernetes.default.svc
