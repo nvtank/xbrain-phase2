@@ -1,0 +1,23 @@
+apiVersion: templates.gatekeeper.sh/v1
+kind: ConstraintTemplate
+metadata:
+  name: k8srequireownerlabel
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sRequireOwnerLabel
+      validation:
+        openAPIV3Schema:
+          type: object
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8srequireownerlabel
+
+        violation[{"msg": msg}] {
+          labels := object.get(input.review.object.metadata, "labels", {})
+          owner := object.get(labels, "owner", "")
+          owner == ""
+          msg := sprintf("%v <%v> must have metadata.labels.owner", [input.review.kind.kind, input.review.object.metadata.name])
+        }
