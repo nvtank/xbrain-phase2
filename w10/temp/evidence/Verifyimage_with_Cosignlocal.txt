@@ -1,0 +1,18 @@
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ IMAGE_TAG=$(cd /home/nvtank/year3/intern/repo && git rev-parse HEAD)
+IMAGE="ghcr.io/nvtank/w10-api:$IMAGE_TAG"
+
+echo $IMAGE
+ghcr.io/nvtank/w10-api:a7e981ee69cbdbb232e12de05ac1baf86af19bd5
+
+repo/w10/temp on  w10 [?] via ❄️  impure (shell) on ☁️  (ap-southeast-1) 
+❯ cosign verify --key signing/cosign.pub "$IMAGE"
+
+Verification for ghcr.io/nvtank/w10-api:a7e981ee69cbdbb232e12de05ac1baf86af19bd5 --
+The following checks were performed on each of these signatures:
+  - The cosign claims were validated
+  - Existence of the claims in the transparency log was verified offline
+  - The signatures were verified against the specified public key
+
+[{"critical":{"identity":{"docker-reference":"ghcr.io/nvtank/w10-api:a7e981ee69cbdbb232e12de05ac1baf86af19bd5"},"image":{"docker-manifest-digest":"sha256:d324b1f33999c78a98e545127ec2a8c10c507e69ba9c05defe9bdfd98174babc"},"type":"https://sigstore.dev/cosign/sign/v1"},"optional":{}}]
