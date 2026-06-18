@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/nvtank/xbrain-phase2/
     path: gatekeeper/constraints
-    targetRevision: main
+    targetRevision: w10
   destination:
     server: https://kubernetes.default.svc
     namespace: gatekeeper-system
