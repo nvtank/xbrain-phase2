@@ -1,12 +1,14 @@
-apiVersion: policy.sigstore.dev/v1alpha1
+apiVersion: policy.sigstore.dev/v1beta1
 kind: ClusterImagePolicy
 metadata:
   name: require-signed-w10-api
 spec:
+  mode: enforce
   images:
     - glob: "ghcr.io/nvtank/w10-api:*"
   authorities:
-    - key:
+    - name: authority-0
+      key:
         data: |
           -----BEGIN PUBLIC KEY-----
           MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEG/UerSPwaCvNq/tAeoWEXPrSEDpO
