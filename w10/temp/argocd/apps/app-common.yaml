@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/nvtank/xbrain-phase2/
-    path: app-common
+    path: w10/temp/app-common
     targetRevision: w10
   destination:
     server: https://kubernetes.default.svc

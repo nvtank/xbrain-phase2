@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/nvtank/xbrain-phase2/
-    path: argocd/apps
+    path: w10/temp/argocd/apps
     targetRevision: w10
   destination:
     server: https://kubernetes.default.svc
