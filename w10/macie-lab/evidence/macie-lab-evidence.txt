@@ -1,0 +1,52 @@
+## S3 files
+2026-06-19 15:22:53        163 aws-key-sample.txt
+2026-06-19 15:22:53        112 customer-info.txt
+
+## Macie session
+{
+    "createdAt": "2026-06-19T08:23:01.962000+00:00",
+    "findingPublishingFrequency": "FIFTEEN_MINUTES",
+    "serviceRole": "arn:aws:iam::995310839463:role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie",
+    "status": "ENABLED",
+    "updatedAt": "2026-06-19T08:23:01.962000+00:00"
+}
+
+## SNS subscription
+----------------------------------------------------------------------------------------------------------------------------------------
+|                                                       ListSubscriptionsByTopic                                                       |
++-----------------------------+--------------------------------------------------------------------------------------------------------+
+|          Endpoint           |                                                Status                                                  |
++-----------------------------+--------------------------------------------------------------------------------------------------------+
+|  tuannguyen.120910@gmail.com|  arn:aws:sns:ap-southeast-1:995310839463:macie-sensitive-alerts:a29dcd85-5ac8-47a4-ae7e-14f0bdee71ef   |
+|  email-cua-ban@gmail.com    |  PendingConfirmation                                                                                   |
++-----------------------------+--------------------------------------------------------------------------------------------------------+
+
+## EventBridge rule
+{
+    "Name": "macie-findings-to-sns",
+    "Arn": "arn:aws:events:ap-southeast-1:995310839463:rule/macie-findings-to-sns",
+    "EventPattern": "{\n  \"source\": [\"aws.macie\"],\n  \"detail-type\": [\"Macie Finding\"]\n}\n",
+    "State": "ENABLED",
+    "EventBusName": "default",
+    "CreatedBy": "995310839463"
+}
+
+## EventBridge targets
+{
+    "Targets": [
+        {
+            "Id": "1",
+            "Arn": "arn:aws:sns:ap-southeast-1:995310839463:macie-sensitive-alerts"
+        }
+    ]
+}
+
+## Macie findings
+-----------------------------------------------------------------
+|                          GetFindings                          |
++----------+----------------------------------------------------+
+|  bucket  |  macie-sensitive-lab-995310839463-ap-southeast-1   |
+|  object  |  customer-info.txt                                 |
+|  severity|  Low                                               |
+|  type    |  SensitiveData:S3Object/Personal                   |
++----------+----------------------------------------------------+
