@@ -1,0 +1,8 @@
+[
+  {
+    "Source": "aws.macie",
+    "DetailType": "Macie Finding",
+    "Detail": "{\"type\":\"SensitiveData:S3Object/Personal\",\"severity\":{\"description\":\"Medium\"},\"resourcesAffected\":{\"s3Bucket\":{\"name\":\"macie-sensitive-lab-995310839463-ap-southeast-1\"}}}",
+    "EventBusName": "default"
+  }
+]

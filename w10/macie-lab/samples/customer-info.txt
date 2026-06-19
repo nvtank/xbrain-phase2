@@ -1,0 +1,4 @@
+Customer: Nguyen Van A
+Email: fake.customer@example.com
+Phone: +84 912 345 678
+Credit Card: 4111-1111-1111-1111

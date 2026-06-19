@@ -1,0 +1,10 @@
+{
+  "bucketDefinitions": [
+    {
+      "accountId": "995310839463",
+      "buckets": [
+        "macie-sensitive-lab-995310839463-ap-southeast-1"
+      ]
+    }
+  ]
+}
