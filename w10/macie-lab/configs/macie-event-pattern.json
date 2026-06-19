@@ -1,0 +1,4 @@
+{
+  "source": ["aws.macie"],
+  "detail-type": ["Macie Finding"]
+}
